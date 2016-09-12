@@ -11,7 +11,6 @@ const Todos = ({ todos, dispatch }) => {
       payload: id,
     });
   };
-
   const renderList = () => {
     const { list, loading } = todos;
     if (loading) {

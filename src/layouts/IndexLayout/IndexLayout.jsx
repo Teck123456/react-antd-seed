@@ -1,12 +1,24 @@
 import React, { Component, PropTypes } from 'react';
 import { Menu, Breadcrumb, Icon } from 'antd';
+import { connect } from 'react-redux';
 import { Router, Route, IndexRoute, Link } from 'react-router';
 import classnames from 'classnames';
 import styles from './IndexLayout.less';
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
-const IndexLayout = ({collapse,onCollapseChange,children})=>{
+const IndexLayout = ({dispatch,layout,children,menus})=>{
+    const {collapse} = layout;
+    const onCollapseChange = ()=>{
+         dispatch({
+          type: 'layout/change',
+          payload: !collapse,
+        });
+    }
+    const renderList = ()=>{
+      console.log(menus);
+    }
+    
     return (
       <div className={collapse ? "ant-layout-aside ant-layout-aside-collapse" : "ant-layout-aside"}>
         <aside className="ant-layout-sider">
@@ -25,7 +37,7 @@ const IndexLayout = ({collapse,onCollapseChange,children})=>{
                 <Menu.Item key="4">选项12</Menu.Item>
               </MenuItemGroup>
             </SubMenu>
-           
+           {renderList()}
           </Menu>
           
         </aside>
@@ -62,11 +74,14 @@ const IndexLayout = ({collapse,onCollapseChange,children})=>{
 }
 
 IndexLayout.propTypes = {
-  collapse: PropTypes.bool.isRequired,
-  onCollapseChange:PropTypes.func.isRequired,
   children:PropTypes.element.isRequired
 };
 
-
-export default IndexLayout;
+function mapStateToProps({ menus,layout }) {
+  return {
+    menus: menus,
+    layout:layout
+  };
+}
+export default connect(mapStateToProps)(IndexLayout);
 

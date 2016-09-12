@@ -1,14 +1,14 @@
 import { handleActions } from 'redux-actions';
 import { combineReducer } from 'redux';
 const menus = handleActions({
-  	['menus/get'](state,action){
+  	['menus/get'](state){
   		return {...state,loading:true}
   	},
   	['menus/get/success'](state,action){
-  		return { ...state, menus: action.payload, loading: false, };
+  		return { ...state, list: action.payload, loading: false, };
   	}
 },{
-  menus:[],
+  list:[],
   loading:false
 });
 
