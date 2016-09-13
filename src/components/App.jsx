@@ -17,7 +17,7 @@ const App = ({location}) => {
       <Todos location={location} />
     </MainLayout>*/
     <IndexLayout>
-    	<Todos location={location}></Todos>
+    	
     </IndexLayout>
   );
 };

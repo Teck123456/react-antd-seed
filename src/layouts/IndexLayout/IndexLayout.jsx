@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Menu, Breadcrumb, Icon } from 'antd';
+import { Menu, Breadcrumb, Icon ,Spin} from 'antd';
 import { connect } from 'react-redux';
 import { Router, Route, IndexRoute, Link } from 'react-router';
 import classnames from 'classnames';
@@ -15,8 +15,37 @@ const IndexLayout = ({dispatch,layout,children,menus})=>{
           payload: !collapse,
         });
     }
+   
+    
     const renderList = ()=>{
-      console.log(menus);
+      const {list,loading} = menus;
+      console.log(loading)
+      console.log(list);
+      if (loading) {
+      return <Spin />;
+    }
+      return(
+        <Menu mode={collapse ?  "vertical" : "inline"} theme="dark" defaultSelectedKeys={['home']}>
+          <Menu.Item key="home">
+            <Icon type="home"/><span style={{display:collapse?"none":""}}>首页</span>
+          </Menu.Item>
+           {list.map((item,index)=>
+              <SubMenu key={index} className={collapse ? "collapse_submenu_title" : ""} title={collapse ? <Icon type={item.icon} /> : <span><Icon type={item.icon} />{item.text}</span>}>
+                  <MenuItemGroup title={collapse ? item.text : ""}>
+                    {
+                        item.children.map((child,i)=>
+                          <Menu.Item key="{index}-1">{child.text}</Menu.Item>
+                          )
+                      
+                    }
+                  </MenuItemGroup>
+                </SubMenu>
+          )}
+           
+          </Menu>
+        
+      );
+      
     }
     
     return (
@@ -25,21 +54,7 @@ const IndexLayout = ({dispatch,layout,children,menus})=>{
           <div className="ant-layout-logo">
             {collapse ? "R" : "REFORDOM"}
           </div>
-          <Menu mode={collapse ?  "vertical" : "inline"} theme="dark" defaultSelectedKeys={['home']}>
-          <Menu.Item key="home">
-            <Icon type="home"/><span style={{display:collapse?"none":""}}>首页</span>
-          </Menu.Item>
-           <SubMenu key="sub3" className={collapse ? "collapse_submenu_title" : ""} title={collapse ? <Icon type="appstore" /> : <span><Icon type="appstore" />内容管理</span>}>
-              <MenuItemGroup title={collapse ? "内容管理" : ""}>
-                <Menu.Item key="1">菜单管理</Menu.Item>
-                <Menu.Item key="2">选项10</Menu.Item>
-                <Menu.Item key="3">选项11</Menu.Item>
-                <Menu.Item key="4">选项12</Menu.Item>
-              </MenuItemGroup>
-            </SubMenu>
-           {renderList()}
-          </Menu>
-          
+          { renderList() }
         </aside>
         <div className="ant-layout-main">
           <div className="ant-layout-header">
@@ -61,7 +76,7 @@ const IndexLayout = ({dispatch,layout,children,menus})=>{
           <div className="ant-layout-container">
             <div className="ant-layout-content">
               <div>
-                {children}
+                
               </div>
             </div>
           </div>
@@ -74,7 +89,7 @@ const IndexLayout = ({dispatch,layout,children,menus})=>{
 }
 
 IndexLayout.propTypes = {
-  children:PropTypes.element.isRequired
+  /*children:PropTypes.element.isRequired*/
 };
 
 function mapStateToProps({ menus,layout }) {

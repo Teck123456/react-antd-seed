@@ -7,9 +7,6 @@ module.exports={
       res.json({
         success: true,
         data: [{
-        	text:"首页",
-        	icon:"home"
-        },{
         	text:"内容管理",
         	icon:"appstore",
         	children:[{
