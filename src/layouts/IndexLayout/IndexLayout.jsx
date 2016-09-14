@@ -15,8 +15,7 @@ const IndexLayout = ({dispatch,layout,children,menus})=>{
           payload: !collapse,
         });
     }
-   
-    
+  
     const renderList = ()=>{
       const {list,loading} = menus;
       console.log(loading)
