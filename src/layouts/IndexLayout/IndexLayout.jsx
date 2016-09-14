@@ -16,6 +16,7 @@ const IndexLayout = ({dispatch,layout,children,menus})=>{
         });
     }
   
+  
     const renderList = ()=>{
       const {list,loading} = menus;
       console.log(loading)
