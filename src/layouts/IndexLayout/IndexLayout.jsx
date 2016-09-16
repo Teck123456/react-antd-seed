@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 import { Router, Route, IndexRoute, Link } from 'react-router';
 import classnames from 'classnames';
 import styles from './IndexLayout.less';
+import Header from '../../components/Header/Header';
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
+
 
 const IndexLayout = ({dispatch,layout,children,menus})=>{
     const {collapse} = layout;
@@ -56,15 +58,7 @@ const IndexLayout = ({dispatch,layout,children,menus})=>{
           { renderList() }
         </aside>
         <div className="ant-layout-main">
-          <div className="ant-layout-header">
-            <div className="ant-aside-action" onClick={onCollapseChange.bind(this)}>
-              <Icon type="bars" />
-            </div>
-            <div className="header-menu">
-              <span><Icon type="poweroff" /> 退出系统</span>
-              <span><Icon type="question-circle-o" /> 帮助</span>
-            </div>
-          </div>
+          <Header />
           
           <div className="ant-layout-container">
             <div className="ant-layout-content">

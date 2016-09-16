@@ -5,13 +5,21 @@ const menus = handleActions({
   		return {...state,loading:true}
   	},
   	['menus/get/success'](state,action){
-  		return { ...state, list: action.payload, loading: false, };
+  		return { ...state, list: action.payload, loading: false,};
   	},
-  	['menu/add'](state){
-  		return {...state}
-  	}
+  	['menus/select/change'](state,action){
+  		return {...state,selectedKey:action.payload};
+  	},
+    ['menus/open/change'](state,action){
+      return {...state,openKeys:[...state.openKeys,action.payload]};
+    },
+    ['menus/close/change'](state,action){
+
+    }
 },{
   list:[],
+  selectedKey:"home",
+  openKeys:["home"],
   loading:false
 });
 

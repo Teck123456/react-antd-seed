@@ -7,7 +7,7 @@ import NotFound from '../components/NotFound';
 import IndexLayout from '../layouts/IndexLayout/IndexLayout';
 const Routes = ({ history }) =>
   <Router history={history}>
-    <Route path="/" component={IndexLayout} >
+    <Route path="/" component={App} >
     	<IndexRoute component={Home} />
     	<Route path="/menus" component={Menus} />
     </Route>
