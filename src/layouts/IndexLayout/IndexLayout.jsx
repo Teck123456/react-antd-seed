@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Menu, Breadcrumb, Icon ,Spin} from 'antd';
+import { Menu, Breadcrumb, Icon ,Spin,Tooltip} from 'antd';
 import { connect } from 'react-redux';
 import { Router, Route, IndexRoute, Link } from 'react-router';
 import classnames from 'classnames';
@@ -18,31 +18,31 @@ const IndexLayout = ({dispatch,layout,children,menus})=>{
 
     const renderList = ()=>{
       const {list,loading} = menus;
-      console.log(loading)
-      console.log(list);
       if (loading) {
-      return <Spin />;
-    }
+        return <Spin />;
+      }
       return(
         <Menu mode={collapse ?  "vertical" : "inline"} theme="dark" defaultSelectedKeys={['home']}>
           <Menu.Item key="home">
-            <Icon type="home"/><span style={{display:collapse?"none":""}}>首页</span>
+          
+            <Link to='/' >
+                    <Icon type="home"/>
+                <span style={{display:collapse?"none":""}}>首页</span>
+            </Link>
           </Menu.Item>
            {list.map((item,index)=>
-              <SubMenu key={index} className={collapse ? "collapse_submenu_title" : ""} title={collapse ? <Icon type={item.icon} /> : <span><Icon type={item.icon} />{item.text}</span>}>
-                  <MenuItemGroup title={collapse ? item.text : ""}>
+              <SubMenu key={"menu-"+index} className={collapse ? "collapse_submenu_title" : ""} title={collapse ? <Icon type={item.icon} /> : <span><Icon type={item.icon} />{item.text}</span>}>
                     {
                         item.children.map((child,i)=>
-                          <Menu.Item key="{index}-1">{child.text}</Menu.Item>
+                          <Menu.Item key={"child-menu-"+i}>
+                              <Link to={child.link}> {child.text}</Link>
+                          </Menu.Item>
                           )
                       
                     }
-                  </MenuItemGroup>
-                </SubMenu>
+              </SubMenu>
           )}
-           
           </Menu>
-        
       );
       
     }
@@ -65,18 +65,10 @@ const IndexLayout = ({dispatch,layout,children,menus})=>{
               <span><Icon type="question-circle-o" /> 帮助</span>
             </div>
           </div>
-          <div className="ant-layout-breadcrumb">
-            <Breadcrumb>
-              <Breadcrumb.Item>首页</Breadcrumb.Item>
-              <Breadcrumb.Item>应用列表</Breadcrumb.Item>
-              <Breadcrumb.Item>某应用</Breadcrumb.Item>
-            </Breadcrumb>
-          </div>
+          
           <div className="ant-layout-container">
             <div className="ant-layout-content">
-              <div>
-                
-              </div>
+              {children}
             </div>
           </div>
           <div className="ant-layout-footer">
@@ -88,7 +80,7 @@ const IndexLayout = ({dispatch,layout,children,menus})=>{
 }
 
 IndexLayout.propTypes = {
-  /*children:PropTypes.element.isRequired*/
+  
 };
 
 function mapStateToProps({ menus,layout }) {

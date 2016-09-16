@@ -9,9 +9,13 @@ module.exports={
         data: [{
         	text:"内容管理",
         	icon:"appstore",
+          link:"/home",
+          key:"01",
         	children:[{
         		text:"菜单管理",
-        		icon:"appstore"
+        		icon:"appstore",
+            link:"/menus",
+            key:"01-01"
         	}]
         }],
       });

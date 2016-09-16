@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Todos from './Todos/Todos';
+
 import MainLayout from '../layouts/MainLayout/MainLayout';
 
 import IndexLayout from '../layouts/IndexLayout/IndexLayout';

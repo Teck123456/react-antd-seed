@@ -6,6 +6,9 @@ const menus = handleActions({
   	},
   	['menus/get/success'](state,action){
   		return { ...state, list: action.payload, loading: false, };
+  	},
+  	['menu/add'](state){
+  		return {...state}
   	}
 },{
   list:[],
